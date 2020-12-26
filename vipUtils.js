@@ -4,6 +4,8 @@ const { brotliCompress } = require('zlib');
 const {addedVipLog, removedVipLog} = require('./logUtils');
 const consts = require('./consts');
 
+const VIP_FILE = "./data/vips.dat";
+
 function getTodayDate(){
     let options={
         timeZone: "Europe/Rome",
@@ -22,7 +24,7 @@ function getTodayDate(){
  */
 function addVIP(name, bot){
     let date = getTodayDate();
-    fs.appendFileSync("vips.txt", name+" "+date+"\n");
+    fs.appendFileSync(VIP_FILE, name+" "+date+"\n");
     addedVipLog(name);
     console.log("[VIP] "+name+" aggiunto ai VIP");
     bot.sendMessage(consts.ADMIN_CHAT_ID, "*[VIP]* "+name+" aggiunto ai VIP", {parse_mode: "Markdown"});
@@ -57,14 +59,14 @@ function removeVIPs(names, bot){
             text+=vipName+" "+vipNames[vipName]+"\n";
         });
         if(found)
-            fs.writeFileSync("vips.txt", text);
+            fs.writeFileSync(VIP_FILE, text);
     }catch(err){
         console.error(err);
     }
 }
 function getVIPs(){
     try{
-        let data = fs.readFileSync("vips.txt", "UTF-8");
+        let data = fs.readFileSync(VIP_FILE, "UTF-8");
         let lines = data.split("\n");
         lines.pop();
         return lines;
@@ -87,7 +89,7 @@ function isVIPActive(subDate){
 }
 function checkVIP(name){
     try{
-        let data = fs.readFileSync("vips.txt", "UTF-8");
+        let data = fs.readFileSync(VIP_FILE, "UTF-8");
         let lines = data.split("\r\n");
         lines.pop();
         let r = [false, null];

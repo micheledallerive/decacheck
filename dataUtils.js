@@ -1,10 +1,12 @@
 const fs = require('fs');
+const URLS_FILE = "./data/urls.dat";
+
 function addURL(URL){
-    fs.appendFileSync("urls.txt", URL+"\n");
+    fs.appendFileSync(URLS_FILE, URL+"\n");
 }
 function getURLs(){
     try{
-        let data = fs.readFileSync("urls.txt", "UTF-8");
+        let data = fs.readFileSync(URLS_FILE, "UTF-8");
         let lines = data.split("\n");
         lines.pop();
         return lines;
@@ -23,14 +25,14 @@ function removeURL(URL){
         });
 
         console.log(text);
-        fs.writeFileSync("urls.txt", text);
+        fs.writeFileSync(URLS_FILE, text);
     }catch(err){
         console.error(err);
     }
 }
 function checkURL(URL){
     try{
-        let data = fs.readFileSync("urls.txt", "UTF-8");
+        let data = fs.readFileSync(URLS_FILE, "UTF-8");
         let lines = data.split("\n");
         return lines.includes(URL);
     }catch(err){
