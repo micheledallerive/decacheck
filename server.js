@@ -13,6 +13,7 @@ const bot = (!TESTING?new Telegrambot(consts.BOT_TOKEN, {polling: true}):null);
 const fetch = require('node-fetch');
 const vipUtils = require('./vipUtils');
 const crashManager = require('./crashManager');
+const connection = require('./db/db');
 
 
 // DATA VARIABLES
